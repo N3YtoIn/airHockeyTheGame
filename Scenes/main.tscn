@@ -1,17 +1,22 @@
-[gd_scene load_steps=11 format=3 uid="uid://bume7x7fv3ifg"]
+[gd_scene load_steps=13 format=3 uid="uid://bume7x7fv3ifg"]
 
 [ext_resource type="Texture2D" uid="uid://dl1xuy04875vy" path="res://Sprites/Players/Player-Blue.png" id="1_mhk6s"]
 [ext_resource type="Script" path="res://Scripts/player_1.gd" id="1_tl1r6"]
+[ext_resource type="FontFile" uid="uid://c43txtorscl1e" path="res://Fonts/Pixeled.ttf" id="2_puy6a"]
 [ext_resource type="Texture2D" uid="uid://b6g3s3pkw4qre" path="res://Sprites/Players/Player-Pink.png" id="3_8a0t2"]
 [ext_resource type="Texture2D" uid="uid://2nfatvlcdntv" path="res://Sprites/Balls/Ball-2.png" id="4_ic4mw"]
 [ext_resource type="Script" path="res://Scripts/ball.gd" id="4_jhx25"]
+[ext_resource type="Texture2D" uid="uid://b711ok6kltfsf" path="res://Sprites/BackGround.png" id="6_7gydk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxd2l"]
+size = Vector2(960.5, 20)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ttpnc"]
 friction = 0.0
 bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ikfuc"]
-radius = 30.0
+radius = 29.0172
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6p1yt"]
 friction = 0.0
@@ -21,13 +26,48 @@ bounce = 1.0
 friction = 0.0
 bounce = 1.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxd2l"]
-size = Vector2(960.5, 20)
-
 [node name="Main" type="Node2D"]
 
+[node name="Fundo" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(480, 270)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_7gydk")
+metadata/_edit_lock_ = true
+
+[node name="Score" type="Label" parent="."]
+texture_filter = 1
+offset_left = 329.0
+offset_top = -4.0
+offset_right = 631.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.741176, 0.415686, 0.384314, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = -2
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_puy6a")
+theme_override_font_sizes/font_size = 40
+text = "0      0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Wall" type="StaticBody2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(479.75, -10)
+shape = SubResource("RectangleShape2D_gxd2l")
+debug_color = Color(0.847448, 0.14274, 0.474829, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Wall"]
+position = Vector2(480, 550)
+shape = SubResource("RectangleShape2D_gxd2l")
+debug_color = Color(0.847448, 0.14274, 0.474829, 0.42)
+
 [node name="Player_1" type="StaticBody2D" parent="."]
-position = Vector2(116, 208)
+position = Vector2(71, 274)
 physics_material_override = SubResource("PhysicsMaterial_ttpnc")
 script = ExtResource("1_tl1r6")
 metadata/_edit_group_ = true
@@ -41,7 +81,7 @@ texture = ExtResource("1_mhk6s")
 shape = SubResource("CircleShape2D_ikfuc")
 
 [node name="Player_2" type="StaticBody2D" parent="."]
-position = Vector2(708, 196)
+position = Vector2(857, 280)
 physics_material_override = SubResource("PhysicsMaterial_6p1yt")
 script = ExtResource("1_tl1r6")
 up = 4194320
@@ -60,9 +100,10 @@ shape = SubResource("CircleShape2D_ikfuc")
 
 [node name="Ball" type="RigidBody2D" parent="."]
 texture_filter = 1
-position = Vector2(456, 197)
+position = Vector2(482, 274)
 physics_material_override = SubResource("PhysicsMaterial_dlphj")
 gravity_scale = 0.0
+linear_damp_mode = 1
 script = ExtResource("4_jhx25")
 metadata/_edit_group_ = true
 
@@ -73,15 +114,3 @@ texture = ExtResource("4_ic4mw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
 shape = SubResource("CircleShape2D_ikfuc")
-
-[node name="Wall" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-position = Vector2(479.75, -10)
-shape = SubResource("RectangleShape2D_gxd2l")
-debug_color = Color(0.847448, 0.14274, 0.474829, 0.42)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Wall"]
-position = Vector2(480, 383)
-shape = SubResource("RectangleShape2D_gxd2l")
-debug_color = Color(0.847448, 0.14274, 0.474829, 0.42)
